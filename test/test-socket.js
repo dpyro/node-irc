@@ -4,9 +4,11 @@ var test = require('tape');
 var testHelpers = require('./helpers');
 
 test('connect and quit socket with message', function(t) {
+    var client, mock, expected;
     var tempSock = testHelpers.getTempSocket();
-    var mock = testHelpers.MockIrcd(tempSock);
-    var client = new irc.Client(tempSock, 'testbot', {socket: true, debug: true});
+
+    mock = testHelpers.MockIrcd(tempSock);
+    client = new irc.Client('socket://' + tempSock, 'testbot', {debug: true});
 
     expected = testHelpers.getFixtures('quit');
 
